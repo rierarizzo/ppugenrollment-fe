@@ -1,0 +1,85 @@
+.container-login {
+  position: relative;
+  height: 100vh;
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex-direction: column;
+
+  .card {
+    height: 100%;
+    background-color: #f1f1f1;
+    border: none;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 25rem;
+  }
+
+  @media only screen and (max-width: 768) {
+    .card {
+      width: 80%;
+    }
+  }
+
+  @media only screen and (max-width: 400) {
+    .card {
+      width: 100%;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  .logo img{
+    width: 30%;
+  }
+
+  .form {
+    display: grid;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    padding: 2rem;
+    row-gap: 1.3rem;
+
+    input{
+      padding: .6rem  .6rem;
+    }
+
+    .password{
+        position: relative;
+
+        i{
+            z-index: 999;
+            position: absolute;
+            right: 1rem;
+            top: .5rem;
+        }
+    }
+
+    .title {
+      span {
+        width: 100%;
+        color: #121212;
+        font-size: 1.75em;
+        font-weight: 700;
+        word-wrap: break-word;
+      }
+    }
+
+    .group-buttons{
+      margin-top: .5rem;
+      display: flex;
+      flex-direction: column;
+      row-gap: .7rem;
+    }
+  }
+}

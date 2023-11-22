@@ -1,0 +1,17 @@
+button {
+    text-transform: none;
+    font-weight: 700;
+    width: 100%;
+    letter-spacing: 0;
+    font-size: 1rem;
+    padding-top:.5rem;
+    padding-bottom:.5rem;
+    // --background: #2a3240;
+    border-radius: .7rem;
+    // --background-hover: #2a3240;
+    // --background-activated: #1a253a;
+
+    .loading-button{
+      margin-left: 1rem;
+    }
+  }

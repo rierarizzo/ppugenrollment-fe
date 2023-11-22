@@ -1,0 +1,90 @@
+<div class="container-login">
+  <app-spinner></app-spinner>
+  <div class="card">
+    <div>
+      <div class="logo">
+        <img src="assets/logoUg.png" alt="logo" />
+      </div>
+      <form>
+        <div class="form">
+          <div class="title">
+            <span>Hola, inicia sesión</span>
+          </div>
+          <div class="input-group">
+            <input
+              autocomplete="off"
+              id="user"
+              type="text"
+              formControlName="user"
+              class="form-control rounded"
+              placeholder="Usuario"
+            />
+          </div>
+
+          <div class="input-group password">
+            <input
+              autocomplete="off"
+              [type]="typePassword ? 'password' : 'text'"
+              formControlName="password"
+              placeholder="Contraseña"
+              id="password"
+              [maxLength]="20"
+              [ngClass]="{
+                'is-invalid':
+                  loginForm.get('password')?.hasError('required') &&
+                  loginForm.get('password')?.touched
+              }"
+              class="form-control rounded"
+            />
+
+            <i
+              *ngIf="
+                typePassword &&
+                !(
+                  loginForm.get('password')?.hasError('required') &&
+                  loginForm.get('password')?.touched
+                )
+              "
+              (click)="typePassword = !typePassword"
+              matSuffix
+              class="bi bi-eye-slash form-control-feedback"
+            ></i>
+
+            <i
+              *ngIf="
+                !typePassword &&
+                !(
+                  loginForm.get('password')?.hasError('required') &&
+                  loginForm.get('password')?.touched
+                )
+              "
+              (click)="typePassword = !typePassword"
+              matSuffix
+              class="bi bi-eye cursor-pointer form-control-feedback"
+            ></i>
+
+            <div
+              class="invalid-feedback"
+              *ngIf="
+                loginForm.get('password')?.hasError('required') &&
+                loginForm.get('password')?.touched
+              "
+            >
+              ¡Campo Obligatorio!
+            </div>
+          </div>
+          <div class="group-buttons">
+            <shared-button
+              [classButton]="'btn-primary'"
+              [label]="'Iniciar Sesión'"
+            ></shared-button>
+            <shared-button
+              [classButton]="'btn-outline-secondary'"
+              [label]="'Recuperar contraseña'"
+            ></shared-button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
