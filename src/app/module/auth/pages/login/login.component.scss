@@ -43,6 +43,7 @@
     width: 30%;
   }
 
+  
   .form {
     display: grid;
     background-color: #FFFFFF;
@@ -63,6 +64,12 @@
             right: 1rem;
             top: .5rem;
         }
+
+    }
+
+    .forget-password{
+      text-align: end;
+      margin-top: 6px;
     }
 
     .title {

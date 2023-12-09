@@ -6,7 +6,8 @@
         <img src="assets/logoUg.png" alt="logo" />
       </div>
       <form>
-        <div class="form shadow-lg">
+        
+        <div class="form shadow-lg" *ngIf="!showRegister" [formGroup]="loginForm">
           <div class="title">
             <span>Hola, inicia sesión</span>
           </div>
@@ -21,69 +22,80 @@
             />
           </div>
 
-          <div class="input-group password">
-            <input
-              autocomplete="off"
-              [type]="typePassword ? 'password' : 'text'"
-              formControlName="password"
-              placeholder="Contraseña"
-              id="password"
-              [maxLength]="20"
-              [ngClass]="{
-                'is-invalid':
+          <div class="container-password">
+            <div class="input-group password">
+              <input
+                autocomplete="off"
+                [type]="typePassword ? 'password' : 'text'"
+                formControlName="password"
+                placeholder="Contraseña"
+                id="password"
+                [maxLength]="20"
+                [ngClass]="{
+                  'is-invalid':
+                    loginForm.get('password')?.hasError('required') &&
+                    loginForm.get('password')?.touched
+                }"
+                class="form-control rounded"
+              />
+  
+              <i
+                *ngIf="
+                  typePassword &&
+                  !(
+                    loginForm.get('password')?.hasError('required') &&
+                    loginForm.get('password')?.touched
+                  )
+                "
+                (click)="typePassword = !typePassword"
+                matSuffix
+                class="bi bi-eye-slash form-control-feedback"
+              ></i>
+  
+              <i
+                *ngIf="
+                  !typePassword &&
+                  !(
+                    loginForm.get('password')?.hasError('required') &&
+                    loginForm.get('password')?.touched
+                  )
+                "
+                (click)="typePassword = !typePassword"
+                matSuffix
+                class="bi bi-eye cursor-pointer form-control-feedback"
+              ></i>
+  
+              <div
+                class="invalid-feedback"
+                *ngIf="
                   loginForm.get('password')?.hasError('required') &&
                   loginForm.get('password')?.touched
-              }"
-              class="form-control rounded"
-            />
-
-            <i
-              *ngIf="
-                typePassword &&
-                !(
-                  loginForm.get('password')?.hasError('required') &&
-                  loginForm.get('password')?.touched
-                )
-              "
-              (click)="typePassword = !typePassword"
-              matSuffix
-              class="bi bi-eye-slash form-control-feedback"
-            ></i>
-
-            <i
-              *ngIf="
-                !typePassword &&
-                !(
-                  loginForm.get('password')?.hasError('required') &&
-                  loginForm.get('password')?.touched
-                )
-              "
-              (click)="typePassword = !typePassword"
-              matSuffix
-              class="bi bi-eye cursor-pointer form-control-feedback"
-            ></i>
-
-            <div
-              class="invalid-feedback"
-              *ngIf="
-                loginForm.get('password')?.hasError('required') &&
-                loginForm.get('password')?.touched
-              "
-            >
-              ¡Campo Obligatorio!
+                "
+              >
+                ¡Campo Obligatorio!
+              </div>
+  
+              
+            </div>
+            <div class="forget-password">
+              <a>¿Olvidaste tu contraseña?</a>
             </div>
           </div>
+         
           <div class="group-buttons">
             <shared-button
               [classButton]="'btn-primary'"
               [label]="'Iniciar Sesión'"
+              (click)="signIn()"
             ></shared-button>
             <shared-button
               [classButton]="'btn-outline-secondary'"
-              [label]="'Recuperar contraseña'"
+              [label]="'Registrarse'"
+              (click)="showRegister = !showRegister"
             ></shared-button>
           </div>
         </div>
+        <app-register *ngIf="showRegister" (returnLogin)="showLogin($event)"></app-register>
       </form>
     </div>
   </div>

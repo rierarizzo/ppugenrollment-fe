@@ -1,0 +1,115 @@
+<div class="form shadow-lg" [formGroup]="registerForm">
+
+  <div class="title">
+    <i class="bi bi-arrow-left return-icon" (click)="returnToLogin()"></i>
+    <span>Hola, Registrate</span>
+  </div>
+  <div class="input-group">
+    <input
+      autocomplete="off"
+      id="user"
+      type="text"
+      formControlName="user"
+      class="form-control rounded"
+      placeholder="Usuario"
+    />
+  </div>
+
+  <div class="container-password">
+    <div class="input-group password">
+      <input
+        autocomplete="off"
+        [type]="typePassword ? 'password' : 'text'"
+        formControlName="password"
+        placeholder="Contraseña"
+        id="password"
+        [maxLength]="20"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.get('password')?.hasError('required') &&
+            registerForm.get('password')?.touched
+        }"
+        class="form-control rounded"
+      />
+
+      <i
+      *ngIf="
+        typePassword &&
+        !(
+          registerForm.get('password')?.hasError('required') &&
+          registerForm.get('password')?.touched
+        )
+      "
+      (click)="typePassword = !typePassword"
+      matSuffix
+      class="bi bi-eye-slash form-control-feedback"
+    ></i>
+
+    <i
+      *ngIf="
+        !typePassword &&
+        !(
+          registerForm.get('password')?.hasError('required') &&
+          registerForm.get('password')?.touched
+        )
+      "
+      (click)="typePassword = !typePassword"
+      matSuffix
+      class="bi bi-eye cursor-pointer form-control-feedback"
+    ></i>
+    </div>
+  </div>
+
+  <div class="container-password">
+    <div class="input-group password">
+      <input
+        autocomplete="off"
+        [type]="confirmShowPassword ? 'password' : 'text'"
+        formControlName="password"
+        placeholder="Confirmar contraseña"
+        id="NewPassword"
+        [maxLength]="20"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.get('password')?.hasError('required') &&
+            registerForm.get('password')?.touched
+        }"
+        class="form-control rounded"
+      />
+
+      <i
+      *ngIf="
+        confirmShowPassword &&
+        !(
+          registerForm.get('password')?.hasError('required') &&
+          registerForm.get('password')?.touched
+        )
+      "
+      (click)="confirmShowPassword = !confirmShowPassword"
+      matSuffix
+      class="bi bi-eye-slash form-control-feedback"
+    ></i>
+
+    <i
+      *ngIf="
+        !confirmShowPassword &&
+        !(
+          registerForm.get('password')?.hasError('required') &&
+          registerForm.get('password')?.touched
+        )
+      "
+      (click)="confirmShowPassword = !confirmShowPassword"
+      matSuffix
+      class="bi bi-eye cursor-pointer form-control-feedback"
+    ></i>
+    </div>
+  </div>
+ 
+  <div class="group-buttons">
+    <shared-button
+      [classButton]="'btn-primary'"
+      [label]="'Registrase'"
+      (click)="registerUser()"
+    ></shared-button>
+  </div>
+</div>

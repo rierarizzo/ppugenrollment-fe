@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ListProjectComponent } from './pages/list-project/list-project.component';
 import { AddProjectComponent } from './pages/add-project/add-project.component';
 import { ProjectRoutingModule } from './project-routing.module';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
   imports: [
     CommonModule,
-    ProjectRoutingModule
+    ProjectRoutingModule,
+    NzTableModule,
+    NzDividerModule,
   ],
   declarations: [
     ListProjectComponent,

@@ -14,7 +14,6 @@
         &:hover{
             background-color: #f7f7f7;
             border-radius: .5rem;
-            // border: 1px solid gray;
         }
     
         i{
@@ -26,6 +25,10 @@
 
 
 .header-layout {
+  position: fixed;
+  width: 100%;
+  background-color: #FFFF;
+  z-index: 999;
   display: flex;
   padding: 0.5rem;
   justify-content: space-between;
@@ -58,4 +61,8 @@
     font-size: 1.3rem;
     font-weight: 600;
   }
+}
+
+.content-container {
+  padding-top: 4.375rem; 
 }

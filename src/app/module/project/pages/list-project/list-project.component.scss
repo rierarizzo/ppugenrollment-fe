@@ -1,0 +1,26 @@
+.container-list-projects{
+    padding: 2rem;
+
+    .title{
+        text-align: center;
+    }
+
+    .container-table{
+        width: 80%;
+        margin: 0 auto;
+
+        .filter{
+            position: relative;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+
+            width: 30%;
+
+            i{
+                position: absolute;
+                right: 1rem;
+                top: .5rem;
+            }
+        }
+    }
+}
