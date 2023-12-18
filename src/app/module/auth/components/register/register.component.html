@@ -4,14 +4,48 @@
     <i class="bi bi-arrow-left return-icon" (click)="returnToLogin()"></i>
     <span>Hola, Registrate</span>
   </div>
+
   <div class="input-group">
     <input
       autocomplete="off"
-      id="user"
+      id="idCardNumber"
       type="text"
-      formControlName="user"
+      formControlName="idCardNumber"
       class="form-control rounded"
-      placeholder="Usuario"
+      placeholder="Cédula"
+    />
+  </div>
+
+  <div class="input-group">
+    <input
+      autocomplete="off"
+      id="name"
+      type="text"
+      formControlName="name"
+      class="form-control rounded"
+      placeholder="Nombres"
+    />
+  </div>
+
+  <div class="input-group">
+    <input
+      autocomplete="off"
+      id="surname"
+      type="text"
+      formControlName="surname"
+      class="form-control rounded"
+      placeholder="Apellidos"
+    />
+  </div>
+
+  <div class="input-group">
+    <input
+      autocomplete="off"
+      id="email"
+      type="email"
+      formControlName="email"
+      class="form-control rounded"
+      placeholder="Correo electrónico"
     />
   </div>
 
@@ -33,30 +67,30 @@
       />
 
       <i
-      *ngIf="
+        *ngIf="
         typePassword &&
         !(
           registerForm.get('password')?.hasError('required') &&
           registerForm.get('password')?.touched
         )
       "
-      (click)="typePassword = !typePassword"
-      matSuffix
-      class="bi bi-eye-slash form-control-feedback"
-    ></i>
+        (click)="typePassword = !typePassword"
+        matSuffix
+        class="bi bi-eye-slash form-control-feedback"
+      ></i>
 
-    <i
-      *ngIf="
+      <i
+        *ngIf="
         !typePassword &&
         !(
           registerForm.get('password')?.hasError('required') &&
           registerForm.get('password')?.touched
         )
       "
-      (click)="typePassword = !typePassword"
-      matSuffix
-      class="bi bi-eye cursor-pointer form-control-feedback"
-    ></i>
+        (click)="typePassword = !typePassword"
+        matSuffix
+        class="bi bi-eye cursor-pointer form-control-feedback"
+      ></i>
     </div>
   </div>
 
@@ -78,33 +112,42 @@
       />
 
       <i
-      *ngIf="
+        *ngIf="
         confirmShowPassword &&
         !(
           registerForm.get('password')?.hasError('required') &&
           registerForm.get('password')?.touched
         )
       "
-      (click)="confirmShowPassword = !confirmShowPassword"
-      matSuffix
-      class="bi bi-eye-slash form-control-feedback"
-    ></i>
+        (click)="confirmShowPassword = !confirmShowPassword"
+        matSuffix
+        class="bi bi-eye-slash form-control-feedback"
+      ></i>
 
-    <i
-      *ngIf="
+      <i
+        *ngIf="
         !confirmShowPassword &&
         !(
           registerForm.get('password')?.hasError('required') &&
           registerForm.get('password')?.touched
         )
       "
-      (click)="confirmShowPassword = !confirmShowPassword"
-      matSuffix
-      class="bi bi-eye cursor-pointer form-control-feedback"
-    ></i>
+        (click)="confirmShowPassword = !confirmShowPassword"
+        matSuffix
+        class="bi bi-eye cursor-pointer form-control-feedback"
+      ></i>
     </div>
   </div>
- 
+
+  <div class="input-group">
+    <select class="form-select" id="role" formControlName="role">
+      <option value="" disabled selected>Rol</option>
+      <option value="S">Estudiante</option>
+      <option value="A">Aprobador</option>
+      <option value="M">Administrador</option>
+    </select>
+  </div>
+
   <div class="group-buttons">
     <shared-button
       [classButton]="'btn-primary'"

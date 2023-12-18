@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Siug:build:production"
+              "buildTarget": "Siug:build:production"
             },
             "development": {
-              "browserTarget": "Siug:build:development"
+              "buildTarget": "Siug:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Siug:build"
+            "buildTarget": "Siug:build"
           }
         },
         "test": {
