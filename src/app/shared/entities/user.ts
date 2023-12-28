@@ -5,4 +5,5 @@ export class User {
   email: string | undefined
   password: string | undefined
   role: string | undefined
+  is_a_graduate: boolean | undefined
 }

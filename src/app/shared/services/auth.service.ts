@@ -12,4 +12,8 @@ export class AuthService {
   registerUser(user: User) {
     return this.http.post("http://localhost:80/authentication/register", user)
   }
+
+  loginUser(user: User) {
+    return this.http.post("http://localhost:80/authentication/login", user)
+  }
 }

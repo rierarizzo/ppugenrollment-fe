@@ -1,6 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from "../../../../shared/entities/user";
 import {AuthService} from "../../../../shared/services/auth.service";
 import Swal from 'sweetalert2';
@@ -11,11 +10,12 @@ import Swal from 'sweetalert2';
 export class RegisterComponent implements OnInit {
   typePassword: boolean = true;
   confirmShowPassword: boolean = true;
+  selectedRole: string = "";
   registerForm!: FormGroup;
 
   @Output() returnLogin: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private builder: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(private builder: FormBuilder, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -30,7 +30,8 @@ export class RegisterComponent implements OnInit {
       email: ["", [Validators.required]],
       password: ["", Validators.required],
       confirmPassword: ["", Validators.required],
-      role: ["", Validators.required]
+      role: ["", Validators.required],
+      isGraduated: new FormControl(false)
     });
   }
 
@@ -42,14 +43,15 @@ export class RegisterComponent implements OnInit {
     user.email = this.registerForm.value.email;
     user.password = this.registerForm.value.password;
     user.role = this.registerForm.value.role;
+    user.is_a_graduate = this.registerForm.value.isGraduated;
 
     this.authService.registerUser(user).subscribe({
-      next: (v) => {
+      next: () => {
         Swal.fire({
           title: "Registrado",
           text: "Su usuario ha sido registrado con éxito, por favor, inicia sesión.",
           icon: "success"
-        });
+        }).then(r => console.log(r));
       }, error: console.error
     });
   }

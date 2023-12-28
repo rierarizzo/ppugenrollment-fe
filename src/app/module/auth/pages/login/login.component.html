@@ -6,7 +6,7 @@
         <img src="assets/logoUg.png" alt="logo" />
       </div>
       <form>
-        
+
         <div class="form shadow-lg" *ngIf="!showRegister" [formGroup]="loginForm">
           <div class="title">
             <span>Hola, inicia sesión</span>
@@ -18,7 +18,7 @@
               type="text"
               formControlName="user"
               class="form-control rounded"
-              placeholder="Usuario"
+              placeholder="Correo"
             />
           </div>
 
@@ -38,7 +38,7 @@
                 }"
                 class="form-control rounded"
               />
-  
+
               <i
                 *ngIf="
                   typePassword &&
@@ -51,7 +51,7 @@
                 matSuffix
                 class="bi bi-eye-slash form-control-feedback"
               ></i>
-  
+
               <i
                 *ngIf="
                   !typePassword &&
@@ -64,7 +64,7 @@
                 matSuffix
                 class="bi bi-eye cursor-pointer form-control-feedback"
               ></i>
-  
+
               <div
                 class="invalid-feedback"
                 *ngIf="
@@ -74,14 +74,14 @@
               >
                 ¡Campo Obligatorio!
               </div>
-  
-              
+
+
             </div>
             <div class="forget-password">
               <a>¿Olvidaste tu contraseña?</a>
             </div>
           </div>
-         
+
           <div class="group-buttons">
             <shared-button
               [classButton]="'btn-primary'"
