@@ -10,10 +10,10 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   registerUser(user: User) {
-    return this.http.post("http://localhost:80/authentication/register", user)
+    return this.http.post("http://localhost:8080/authentication/register", user)
   }
 
   loginUser(user: User) {
-    return this.http.post("http://localhost:80/authentication/login", user)
+    return this.http.post("http://localhost:8080/authentication/login", user)
   }
 }
