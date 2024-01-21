@@ -10,6 +10,13 @@ export class NavDrawerComponent {
 
   visible = false;
   placement: NzDrawerPlacement = 'left';
+  profileName: string;
+
+  constructor() {
+    const userData = JSON.parse(localStorage.getItem("userData")!);
+    this.profileName = userData.data.name + " " + userData.data.surname;
+  }
+
   open(): void {
     this.visible = true;
   }

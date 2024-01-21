@@ -17,17 +17,15 @@
       <tr>
         <th>Proyecto</th>
         <th>Empresa</th>
-        <th>Supervisor</th>
         <th>Fecha inicio</th>
         <th>Fecha fin</th>
         <th>Acciones</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of basicTable.data">
+      <tr *ngFor="let data of listOfData">
         <td>{{ data.projectName }}</td>
         <td>{{ data.company }}</td>
-        <td>{{ data.supervisor }}</td>
         <td>{{ data.startDate }}</td>
         <td>{{ data.endDate }}</td>
         <td>
