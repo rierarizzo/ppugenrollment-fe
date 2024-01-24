@@ -5,6 +5,7 @@ import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from "@angular/router";
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,10 +19,12 @@ import { RouterModule } from "@angular/router";
   ],
   declarations: [
     NavDrawerComponent,
+    FooterComponent,
     
   ],
   exports: [
-    NavDrawerComponent
+    NavDrawerComponent,
+    FooterComponent
   ]
 })
 export class LayoutModule { }

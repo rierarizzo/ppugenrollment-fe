@@ -1,0 +1,43 @@
+<div class="container-Aprobar-projects">
+  <h1 class="title">Gestión de prácticas preprofesionales</h1>
+  <h2>Ventana de Aprobación</h2>
+
+  <div class="container-table">
+    <div class="filter">
+      <i class="bi bi-search"></i>
+      <input type="text" class="form-control" placeholder="Buscar">
+    </div>
+    <nz-table #basicTable [nzData]="listOfData">
+      <thead>
+        <tr>
+          <th>Proyecto</th>
+          <th>Empresa</th>
+          <th>Estudiante</th>
+          <th>Supervisor</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+          <th>Comentarios</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.projectName }}</td>
+          <td>{{ data.company }}</td>
+          <td>{{ data.estudiante }}</td>
+          <td>{{ data.supervisor }}</td>
+          <td>{{ data.estado }}</td>
+          <td>
+            <button class="btn btn-outline-primary">Aprobar </button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button class="btn btn-outline-danger">Rechazar</button>
+          </td>
+          <td>
+            <textarea ng-model="data.comentarios" cols="30" rows="3"></textarea>
+            <br>
+            <button ng-click="enviarComentarios(data)">Enviar </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

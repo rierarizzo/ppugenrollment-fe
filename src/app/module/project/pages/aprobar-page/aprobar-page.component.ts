@@ -5,12 +5,13 @@ import { ProjectsService } from 'src/app/shared/services/projects.service';
 
 
 @Component({
-  selector: 'app-list-project',
-  templateUrl: './list-project.component.html',
-  styleUrls: ['./list-project.component.scss'],
+  selector: 'app-aprobar-page',
+  templateUrl: './aprobar-page.component.html',
+  styleUrl: './aprobar-page.component.scss'
 })
-export class ListProjectComponent  implements OnInit{
+export class AprobarPageComponent implements OnInit{
   listOfData: IProject[] = []   
+  solicitud:any 
 
   constructor (private projectService: ProjectsService){}
 

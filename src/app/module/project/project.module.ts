@@ -5,6 +5,8 @@ import { AddProjectComponent } from './pages/add-project/add-project.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { AprobarPageComponent } from './pages/aprobar-page/aprobar-page.component';
+import { LayoutModule } from 'src/app/layout/layout.module';
 
 @NgModule({
   imports: [
@@ -12,10 +14,12 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     ProjectRoutingModule,
     NzTableModule,
     NzDividerModule,
+    LayoutModule,
   ],
   declarations: [
     ListProjectComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    AprobarPageComponent
   ]
 })
 export class ProjectModule { }
