@@ -17,7 +17,7 @@ const routes: Routes = [
     redirectTo: 'list-project',
     pathMatch: 'full',
   },
-  { path: '**', redirectTo: 'list-project' } 
+  { path: '**', redirectTo: 'list-project' }
 
 ];
 
@@ -25,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ProjectRoutingModule {}
+export class ProjectRoutingModule { }

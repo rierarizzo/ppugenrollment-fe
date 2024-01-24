@@ -14,26 +14,29 @@
     </div>
     <nz-table #basicTable [nzData]="listOfData">
       <thead>
-      <tr>
-        <th>Proyecto</th>
-        <th>Empresa</th>
-        <th>Fecha inicio</th>
-        <th>Fecha fin</th>
-        <th>Acciones</th>
-      </tr>
+        <tr>
+          <th>Proyecto</th>
+          <th>Empresa</th>
+          <th>Fecha inicio</th>
+          <th>Fecha fin</th>
+          <th>Acciones</th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of listOfData">
-        <td>{{ data.projectName }}</td>
-        <td>{{ data.company }}</td>
-        <td>{{ data.startDate }}</td>
-        <td>{{ data.endDate }}</td>
-        <td>
-          <button class="btn btn-outline-primary">Gestionar solicitud</button>
-          <nz-divider nzType="vertical"></nz-divider>
-          <button class="btn btn-outline-danger">Borrar</button>
-        </td>
-      </tr>
+        <tr *ngFor="let data of listOfData">
+          <td>{{ data.projectName }}</td>
+          <td>{{ data.company }}</td>
+          <td>{{ data.startDate }}</td>
+          <td>{{ data.endDate }}</td>
+          <td>
+            <button class="btn btn-outline-primary" (click)="solicitarMatricula(data)">Solicitar matrícula</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button class="btn btn-outline-danger" (click)="borrar(data)">Borrar</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button class="btn btn-outline-primary" data-bs-target="#updateProjectModal" data-bs-toggle="modal"
+              (click)="actualizarFilaSeleccionada(data)">Modificar</button>
+          </td>
+        </tr>
       </tbody>
     </nz-table>
   </div>
@@ -41,19 +44,125 @@
 
 <!-- Modal para agregar proyecto -->
 <div aria-hidden="true" aria-labelledby="createProjectModalLabel" class="modal fade" id="createProjectModal"
-     tabindex="-1">
+  tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createProjectModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="createProjectModalLabel">Agregar proyecto</h1>
         <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form [formGroup]="addProjectForm">
+          <div class="mb-3">
+            <label for="company" class="col-form-label">Compañía:</label>
+            <select class="form-select" id="company" formControlName="company">
+              <option value="" disabled selected>Seleccione</option>
+              <option *ngFor="let c of companies" value="{{c.key}}">{{c.name}}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+          </div>
+          <div class="mb-3">
+            <label for="description" class="col-form-label">Descripción:</label>
+            <textarea class="form-control" id="description" formControlName="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="schedules" class="col-form-label">Horarios:</label>
+            <select class="form-select" id="schedules" formControlName="schedules" multiple>
+              <option value="" disabled selected>Seleccione</option>
+              <option value="M">Matutino</option>
+              <option value="E">Vespertino</option>
+              <option value="N">Nocturno</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="starts" class="col-form-label">Fecha de inicio:</label>
+            <div class="input-group date" data-provide="datepicker">
+              <input type="text" class="form-control" id="starts" formControlName="starts">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="ends" class="col-form-label">Fecha de fin:</label>
+            <div class="input-group date" data-provide="datepicker">
+              <input type="text" class="form-control" id="ends" formControlName="ends">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-        <button class="btn btn-primary" type="button">Save changes</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancelar</button>
+        <button class="btn btn-primary" type="button" (click)="createProject()">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para actualizar proyecto -->
+<div aria-hidden="true" aria-labelledby="updateProjectModalLabel" class="modal fade" id="updateProjectModal"
+  tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="updateProjectModalLabel">Actualizar proyecto</h1>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addProjectForm">
+          <div class="mb-3">
+            <label for="company" class="col-form-label">Compañía:</label>
+            <select class="form-select" id="company" formControlName="company">
+              <option value="" selected></option>
+              <option *ngFor="let c of companies" value="{{c.key}}">{{c.name}}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+          </div>
+          <div class="mb-3">
+            <label for="description" class="col-form-label">Descripción:</label>
+            <textarea class="form-control" id="description" formControlName="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="schedules" class="col-form-label">Horarios:</label>
+            <select class="form-select" id="schedules" formControlName="schedules" multiple>
+              <option value="" disabled selected>Seleccione</option>
+              <option value="M">Matutino</option>
+              <option value="E">Vespertino</option>
+              <option value="N">Nocturno</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="starts" class="col-form-label">Fecha de inicio:</label>
+            <div class="input-group date" data-provide="datepicker">
+              <input type="text" class="form-control" id="starts" formControlName="starts">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="ends" class="col-form-label">Fecha de fin:</label>
+            <div class="input-group date" data-provide="datepicker">
+              <input type="text" class="form-control" id="ends" formControlName="ends">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancelar</button>
+        <button class="btn btn-primary" type="button" (click)="modificar()">Actualizar</button>
       </div>
     </div>
   </div>
