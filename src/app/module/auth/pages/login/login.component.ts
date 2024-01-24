@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(user).subscribe({
       next: (d) => {
         console.log(d)
+        this.authService.saveUserDataToLocalStorage(d);
         this.router.navigateByUrl("/admin/project/list-project").then(r => console.log(r));
       }, error: console.error
     });

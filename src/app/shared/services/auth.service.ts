@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {User} from "../entities/user";
+import { User } from "../entities/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {}
+  serviceHost: string = "http://localhost:8080";
+
+  constructor(private http: HttpClient) {
+  }
 
   registerUser(user: User) {
-    return this.http.post("http://localhost:80/authentication/register", user)
+    return this.http.post(this.serviceHost + "/authentication/register", user)
   }
 
   loginUser(user: User) {
-    return this.http.post("http://localhost:80/authentication/login", user)
+    return this.http.post(this.serviceHost + "/authentication/login", user);
+  }
+
+  saveUserDataToLocalStorage(userData: any): void {
+    localStorage.setItem('userData', JSON.stringify(userData));
   }
 }
