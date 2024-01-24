@@ -52,7 +52,13 @@ export class RegisterComponent implements OnInit {
           text: "Su usuario ha sido registrado con éxito, por favor, inicia sesión.",
           icon: "success"
         }).then(r => console.log(r));
-      }, error: console.error
+      }, error: () => {
+        Swal.fire({
+          title: "Error",
+          text: "Existe un error inesperado en el registro, por favor, revise sus datos e intente nuevamente.",
+          icon: "error"
+        })
+      }
     });
   }
 

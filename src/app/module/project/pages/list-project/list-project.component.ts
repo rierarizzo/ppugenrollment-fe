@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectRequest } from 'src/app/shared/entities/project';
 import { ICompany } from 'src/app/shared/interfaces/company.interface';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import Swal from 'sweetalert2';
 
@@ -24,6 +25,8 @@ export class ListProjectComponent implements OnInit {
   listOfData: IProject[] = [];
   addProjectForm!: FormGroup;
   companies: ICompany[] = [];
+  isStudent: boolean = this.authService.userIsStudent();
+  isAdmin: boolean = this.authService.userIsAdmin();
 
   createForm() {
     this.addProjectForm = this.builder.group({
@@ -37,7 +40,7 @@ export class ListProjectComponent implements OnInit {
   }
 
 
-  constructor(private builder: FormBuilder, private projectService: ProjectService) {
+  constructor(private builder: FormBuilder, private projectService: ProjectService, private authService: AuthService) {
     this.createForm();
 
     projectService.getCompanies().subscribe({
@@ -89,7 +92,44 @@ export class ListProjectComponent implements OnInit {
     });
   }
 
-  solicitarMatricula(project: any) {
+  projectToEnrollName: string = "";
+  projectToEnrollId: number = 0;
+  schedulesList = { "M": "Matutino", "E": "Vespertino", "N": "Nocturno" }
+  scheduleListFromProject: any[] = [];
+
+  guardarMatriculaClickada(project: any) {
+    this.projectToEnrollName = project.projectName;
+    this.projectToEnrollId = parseInt(String(project.key).trim());
+
+    this.projectService.getSchedulesByProjectId(project.key).subscribe({
+      next: (res) => {
+        const resp = JSON.parse(JSON.stringify(res));
+
+        console.log(resp.data);
+
+        if (resp.data !== null) {
+          for (let s of resp.data) {
+            console.log(s);
+            let code = String(s.code).split("-")[0];
+
+            this.scheduleListFromProject.push({
+              key: code + "-" + s.id,
+              value: this.schedulesList[code as keyof typeof this.schedulesList]
+            });
+          }
+        }
+
+        console.log(this.scheduleListFromProject);
+
+      }, error: console.error
+    })
+  }
+
+  cleanSchedules() {
+    this.scheduleListFromProject = [];
+  }
+
+  solicitarMatricula() {
     Swal.fire({
       title: "¿Estás seguro que deseas solicitar matricula en este proyecto?",
       text: "¡No podrás anular la solicitud!",
@@ -103,13 +143,18 @@ export class ListProjectComponent implements OnInit {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Matrícula solicitada",
-          text: "Has solicitado matrícula en el proyecto '" + project.projectName + "'",
+          text: "Has solicitado matrícula en el proyecto '" + this.projectToEnrollName + "'",
           icon: "success"
         });
 
+        console.log("SCHEDULE SELECTED: " + this.addProjectForm.value.schedules)
+        let scheduleId = parseInt(String(this.addProjectForm.value.schedules).split("-")[1].trim());
+        let scheduleCode = String(this.addProjectForm.value.schedules).split("-")[0].trim();
+
         this.projectService.enrollToProject({
-          project: project.key,
-          schedule: 1
+          project: this.projectToEnrollId,
+          schedule: scheduleId,
+          schedule_code: scheduleCode
         }).subscribe({
           next: (res) => {
             console.log(res);
@@ -196,9 +241,9 @@ export class ListProjectComponent implements OnInit {
     }
 
     request.schedules = schedules;
-    let startsObject = new Date((<HTMLInputElement>document.getElementById("starts")).value)
+    let startsObject = new Date((<HTMLInputElement>document.getElementById("startsUpd")).value)
     request.starts = startsObject.toISOString();
-    let endsObject = new Date((<HTMLInputElement>document.getElementById("ends")).value)
+    let endsObject = new Date((<HTMLInputElement>document.getElementById("endsUpd")).value)
     request.ends = endsObject.toISOString();
 
 
@@ -206,8 +251,8 @@ export class ListProjectComponent implements OnInit {
     this.projectService.updateProject(request).subscribe({
       next: () => {
         Swal.fire({
-          title: "Creado",
-          text: "El proyecto se ha creado con éxito",
+          title: "Modificado",
+          text: "El proyecto se ha modificado con éxito",
           icon: "success"
         }).then(() => {
           this.listOfData = [];

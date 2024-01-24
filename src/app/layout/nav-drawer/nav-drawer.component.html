@@ -7,13 +7,17 @@
 >
 <ng-container *nzDrawerContent> 
     <div class="container-menu-item">
-      <a routerLink="/admin/project" class="menu-item shadow-sm">
+      <a routerLink="/admin/project/list-project" class="menu-item shadow-sm">
         <i class="bi bi-book"></i>
         <span>Proyectos</span>
       </a>
-      <a routerLink="/admin/project" class="menu-item shadow-sm">
-        <i class="bi bi-person-badge"></i>
-        <span>Estudiantes</span>
+      <a routerLink="/admin/project/aprobar" class="menu-item shadow-sm" *ngIf="isApprover">
+        <i class="bi bi-check-lg"></i>
+        <span>Aprobar</span>
+      </a>
+      <a class="menu-item shadow-sm">
+        <i class="bi bi-box-arrow-left"></i>
+        <span (click)="logout()">Cerrar sesión</span>
       </a>
     </div>
 </ng-container>
@@ -24,7 +28,7 @@
     <i class="bi bi-list icon-menu" (click)="openDrawer()"></i>
     <div class="logo">
       <img src="assets/logoUg.png" alt="logo" />
-      <span>SIUG Estudiantes</span>
+      <span>SIUG PP</span>
     </div>
 
     <div class="container-user">

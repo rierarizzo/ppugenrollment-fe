@@ -92,4 +92,24 @@ export class ProjectService {
 
     return this.http.delete(this.serviceHost + "/project/deleteProject/" + id, { headers })
   }
+
+  getSchedulesByProjectId(id: number) {
+    const userData = JSON.parse(localStorage.getItem("userData")!);
+    const token: string = userData.data.authentication_result.access_token;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token.trim()}`
+    });
+
+    return this.http.get(this.serviceHost + "/project/getSchedulesByProjectId/" + id, { headers })
+  }
+
+  approveEnrollmentApplication(id: number, comentarios: string) {
+    const userData = JSON.parse(localStorage.getItem("userData")!);
+    const token: string = userData.data.authentication_result.access_token;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token.trim()}`
+    });
+
+    return this.http.post(this.serviceHost + "/approval/approveEnrollmentApplication/" + id + "/" + comentarios, null, { headers: headers })
+  }
 }

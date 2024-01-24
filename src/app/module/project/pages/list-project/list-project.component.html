@@ -7,7 +7,8 @@
         <i class="bi bi-search"></i>
         <input class="form-control" placeholder="Buscar" type="text">
       </div>
-      <button class="btn btn-primary mt-3" data-bs-target="#createProjectModal" data-bs-toggle="modal" type="button">
+      <button class="btn btn-primary mt-3" data-bs-target="#createProjectModal" data-bs-toggle="modal" type="button"
+        *ngIf="isAdmin">
         Agregar
         proyecto
       </button>
@@ -29,12 +30,13 @@
           <td>{{ data.startDate }}</td>
           <td>{{ data.endDate }}</td>
           <td>
-            <button class="btn btn-outline-primary" (click)="solicitarMatricula(data)">Solicitar matrícula</button>
+            <button class="btn btn-outline-primary" data-bs-target="#enrollProjectModal" data-bs-toggle="modal"
+              *ngIf="isStudent" (click)="guardarMatriculaClickada(data)">Solicitar matrícula</button>
             <nz-divider nzType="vertical"></nz-divider>
-            <button class="btn btn-outline-danger" (click)="borrar(data)">Borrar</button>
+            <button class="btn btn-outline-danger" (click)="borrar(data)" *ngIf="isAdmin">Borrar</button>
             <nz-divider nzType="vertical"></nz-divider>
             <button class="btn btn-outline-primary" data-bs-target="#updateProjectModal" data-bs-toggle="modal"
-              (click)="actualizarFilaSeleccionada(data)">Modificar</button>
+              (click)="actualizarFilaSeleccionada(data)" *ngIf="isAdmin">Modificar</button>
           </td>
         </tr>
       </tbody>
@@ -141,18 +143,18 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="starts" class="col-form-label">Fecha de inicio:</label>
+            <label for="startsUpd" class="col-form-label">Fecha de inicio:</label>
             <div class="input-group date" data-provide="datepicker">
-              <input type="text" class="form-control" id="starts" formControlName="starts">
+              <input type="text" class="form-control" id="startsUpd" formControlName="starts">
               <div class="input-group-addon">
                 <span class="glyphicon glyphicon-th"></span>
               </div>
             </div>
           </div>
           <div class="mb-3">
-            <label for="ends" class="col-form-label">Fecha de fin:</label>
+            <label for="endsUpd" class="col-form-label">Fecha de fin:</label>
             <div class="input-group date" data-provide="datepicker">
-              <input type="text" class="form-control" id="ends" formControlName="ends">
+              <input type="text" class="form-control" id="endsUpd" formControlName="ends">
               <div class="input-group-addon">
                 <span class="glyphicon glyphicon-th"></span>
               </div>
@@ -163,6 +165,34 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancelar</button>
         <button class="btn btn-primary" type="button" (click)="modificar()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para elegir horario -->
+<div aria-hidden="true" aria-labelledby="enrollProjectModalLabel" class="modal fade" id="enrollProjectModal"
+  tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="enrollProjectModalLabel">Elige tu horario</h1>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button" (click)="cleanSchedules()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addProjectForm">
+          <div class="mb-3">
+            <label for="schedules" class="col-form-label">Horarios:</label>
+            <select class="form-select" id="schedules" formControlName="schedules">
+              <option value="" disabled selected>Seleccione</option>
+              <option *ngFor="let s of scheduleListFromProject" value="{{s.key}}">{{s.value}}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button" (click)="cleanSchedules()">Cancelar</button>
+        <button class="btn btn-primary" type="button" (click)="solicitarMatricula()">Solicitar</button>
       </div>
     </div>
   </div>

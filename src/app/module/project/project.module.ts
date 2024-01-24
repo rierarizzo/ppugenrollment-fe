@@ -7,7 +7,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { AprobarPageComponent } from './pages/aprobar-page/aprobar-page.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzTableModule,
     NzDividerModule,
     LayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     ListProjectComponent,

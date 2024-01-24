@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-nav-drawer',
@@ -11,8 +13,9 @@ export class NavDrawerComponent {
   visible = false;
   placement: NzDrawerPlacement = 'left';
   profileName: string;
+  isApprover: boolean = this.authService.userIsApprover();
 
-  constructor() {
+  constructor(private router: Router, private authService: AuthService) {
     const userData = JSON.parse(localStorage.getItem("userData")!);
     this.profileName = userData.data.name + " " + userData.data.surname;
   }
@@ -21,7 +24,12 @@ export class NavDrawerComponent {
     this.visible = true;
   }
 
-  openDrawer(){
+  openDrawer() {
     this.visible = !this.visible;
+  }
+
+  logout() {
+    localStorage.removeItem('userData');
+    this.router.navigate(['/']);
   }
 }

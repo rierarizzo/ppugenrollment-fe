@@ -23,4 +23,37 @@ export class AuthService {
   saveUserDataToLocalStorage(userData: any): void {
     localStorage.setItem('userData', JSON.stringify(userData));
   }
+
+  userIsAdmin(): boolean {
+    const userData = JSON.parse(localStorage.getItem("userData")!);
+    const role: string = userData.data.role;
+
+    if (role !== "M") {
+      return false;
+    }
+
+    return true;
+  }
+
+  userIsApprover(): boolean {
+    const userData = JSON.parse(localStorage.getItem("userData")!);
+    const role: string = userData.data.role;
+
+    if (role !== "A") {
+      return false;
+    }
+
+    return true;
+  }
+
+  userIsStudent(): boolean {
+    const userData = JSON.parse(localStorage.getItem("userData")!);
+    const role: string = userData.data.role;
+
+    if (role !== "S") {
+      return false;
+    }
+
+    return true;
+  }
 }
